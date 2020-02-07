@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.mapper.StudentMapper为接口类 -->
+<mapper namespace="com.mapper.IStudentMapper">
+	<insert id="save" parameterType="com.po.Student">
+		insert into student(sname,sex,address,birthday,classid)
+		 values(#{sname},#{sex},#{address},#{birthday},#{classid})
+	</insert>
+	<update id="update" parameterType="com.po.Student">
+		update student set sname= #{sname},sex=#{sex},address=#{address},birthday=#{birthday}
+		 	where sid=#{sid}
+	</update>
+	<delete id="delById" parameterType="java.lang.Integer">
+		delete from student where sid=#{sid}
+	</delete>
+	<select id="findById" parameterType="java.lang.Integer" resultType="com.po.Student">
+		select * from student where sid=#{sid}
+	</select>
+	<select id="findPageAll" parameterType="java.util.Map"  resultType="com.po.Student">
+		select * from vwstu order by sid limit ${(page-1)*rows},${rows}
+	</select>
+	<select id="findmaxPage" resultType="int">
+		select count(*) from student
+	</select>
+	<select id="doinit" resultType="com.po.Clazz" >
+		select * from clazz where 1=1 order by cid
+	</select>
+
+</mapper>
